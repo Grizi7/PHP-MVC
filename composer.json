@@ -1,0 +1,15 @@
+{
+    "name": "grizi7/php-mvc",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Grizi7",
+            "email": "mahmoudzidan7717@std.mans.edu.eg"
+        }
+    ],
+    "require": {}
+}
