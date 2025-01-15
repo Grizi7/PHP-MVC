@@ -9,6 +9,9 @@
         public Router $router;
 
         public static Application $app;
+
+        public Controller $controller;
+        
         public function __construct(string $rootPath){
 
             self::$ROOT_DIR = $rootPath;
@@ -16,12 +19,32 @@
 
             $this->request = new Request();
             $this->response = new Response();
-            
+
             $this->router = new Router($this->request, $this->response);
 
         }
 
         public function run(){
             echo $this->router->resolve();
+        }
+
+        /**
+         * Get the value of controller
+         */ 
+        public function getController()
+        {
+            return $this->controller;
+        }
+
+        /**
+         * Set the value of controller
+         *
+         * @return  self
+         */ 
+        public function setController($controller)
+        {
+            $this->controller = $controller;
+
+            return $this;
         }
     }

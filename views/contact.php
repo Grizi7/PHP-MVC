@@ -1,4 +1,4 @@
-<div class="container mt-5">
+
     <h2>Contact Us</h2>
     <form action="/contact" method="post">
         <div class="form-group">
@@ -13,6 +13,5 @@
             <label for="message">Message</label>
             <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
     </form>
-</div>
