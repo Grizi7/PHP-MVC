@@ -1,20 +1,48 @@
 <?php
 
     namespace app\controllers;
+
     use app\core\Controller;
     use app\core\Request;
 
-    class SiteController extends Controller{
-        public function home(){
+    /**
+     * Class SiteController
+     *
+     * Handles the site's main pages and contact functionality.
+     */
+    class SiteController extends Controller
+    {
+        /**
+         * Renders the home page.
+         *
+         * @return string The rendered home page view.
+         */
+        public function home(): string
+        {
             $params = [
                 'name' => "Grizi7",
             ];
             return $this->render('home', $params);
         }
-        public function contact(){
+
+        /**
+         * Renders the contact page.
+         *
+         * @return string The rendered contact page view.
+         */
+        public function contact(): string
+        {
             return $this->render('contact');
         }
-        public function handleContact(Request $request){
+
+        /**
+         * Handles the submission of the contact form.
+         *
+         * @param Request $request The HTTP request instance containing form data.
+         * @return array The submitted form data.
+         */
+        public function handleContact(Request $request): array
+        {
             $body = $request->getBody();
             return $body;
         }
