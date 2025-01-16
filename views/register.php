@@ -4,16 +4,16 @@
         <div class="row">
             <div class="form-group col">
             <label for="first_name">First Name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" required>
+            <input type="text" class="form-control" id="first_name" name="first_name" required value="<?= $model->first_name ?? '' ?>">
             </div>
             <div class="form-group col">
             <label for="last_name">Last Name</label>
-            <input type="text" class="form-control" id="last_name" name="last_name" required>
+            <input type="text" class="form-control" id="last_name" name="last_name" required value="<?= $model->last_name ?? '' ?>">
             </div>
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+            <input type="email" class="form-control" id="email" name="email" required value="<?= $model->email ?? '' ?>">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
