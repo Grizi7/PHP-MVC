@@ -10,7 +10,7 @@
     $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
     $dotenv->load();
 
-    $app = new Application(dirname(__DIR__));
+    $app = new Application(dirname(__DIR__), $_ENV);
 
     $app->router->get('/home', [SiteController::class, 'home']);
     $app->router->get('/contact', [SiteController::class, 'contact']);

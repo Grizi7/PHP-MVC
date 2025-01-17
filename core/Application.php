@@ -21,6 +21,9 @@
         /** @var Router $router The router instance for managing routes. */
         public Router $router;
 
+        /** @var Database $db  The singleton instance of the database.*/
+        public Database $db;
+
         /** @var Application $app The singleton instance of the application. */
         public static Application $app;
 
@@ -31,8 +34,9 @@
          * Application constructor.
          *
          * @param string $rootPath The root directory path of the application.
+         * @param array $config The configuration array for the application.
          */
-        public function __construct(string $rootPath)
+        public function __construct(string $rootPath, array $config)
         {
             self::$ROOT_DIR = $rootPath;
             self::$app = $this;
@@ -40,6 +44,8 @@
             $this->request = new Request();
             $this->response = new Response();
             $this->router = new Router($this->request, $this->response);
+
+            $this->db = new Database($config);
         }
 
         /**
