@@ -11,5 +11,7 @@
             "email": "mahmoudzidan7717@std.mans.edu.eg"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
 }

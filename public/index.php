@@ -7,6 +7,9 @@
     use app\controllers\SiteController;
     use app\controllers\AuthController;
 
+    $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+    $dotenv->load();
+
     $app = new Application(dirname(__DIR__));
 
     $app->router->get('/home', [SiteController::class, 'home']);
