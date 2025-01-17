@@ -6,6 +6,7 @@
 
     use app\core\Controller;
     use app\core\Request;
+    use app\core\form\Form;
     use app\models\RegisterModel;
 
     /**
@@ -58,6 +59,7 @@
             }
             return $this->render('register', [
                 'model' => $registerModel,
+                'form' => new Form(),
             ]);
         }
     }

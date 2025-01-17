@@ -1,6 +1,6 @@
 
     <h2>Register</h2>
-    <?php $form = \app\core\form\Form::begin('', 'post') ?>
+    <?php $form::begin('', 'post') ?>
         <div class="row">
             <div class="col">
                 <?= $form->field($model, 'first_name') ?>
@@ -12,4 +12,4 @@
         <?= $form->field($model, 'email', 'email') ?>
         <?= $form->field($model, 'password', 'password') ?>
         <?= $form->field($model, 'confirm_password', 'password') ?>
-    <?php \app\core\form\Form::end() ?>
+    <?php $form::end() ?>
