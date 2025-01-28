@@ -24,7 +24,7 @@
 
         abstract public function labels(): array;
 
-        public function validate()
+        public function validate(): bool
         {
             foreach($this->rules() as $attribute =>  $rules){
                 $value = $this->{$attribute};
@@ -51,6 +51,7 @@
                     }
                 }
             }
+            return empty($this->errors);
         }
 
         public function addError(string $attribute, string $rule, $params = []){

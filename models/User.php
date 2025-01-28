@@ -2,22 +2,37 @@
 
     namespace app\models;
 
-    use app\core\Model;
+    use app\core\DBModel;
 
-    class RegisterModel extends Model
+    class User extends DBModel
     {
+        const STATUS_INACTIVE = 0;
+        const STATUS_ACTIVE = 1;
+        const STATUS_DELETED = 2;
 
         public string $first_name = '';
         public string $last_name = '';
         public string $email = '';
+        public int $status = self::STATUS_INACTIVE;
         public string $password = '';
         public string $confirm_password = '';
 
-        public function save()
+        public function tableName(): string
+        {
+            return 'users';
+        }
+
+        public function attributes(): array
+        {
+            return ['first_name', 'last_name', 'email', 'status', 'password'];
+        }
+        public function create()
         {
             // create a new user in the database
-
-            return true;
+            $this->status = self::STATUS_INACTIVE;
+            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+            return parent::create();
+            
         }
 
         public function rules(): array
