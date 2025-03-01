@@ -97,6 +97,10 @@
             $statement->execute();
         }
 
+        public function prepare($sql)  {
+            return $this->pdo->prepare($sql);
+        }
+
         /**
          * Logs a message with a timestamp.
          *

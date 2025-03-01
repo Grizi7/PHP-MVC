@@ -9,6 +9,7 @@
         public const RULE_MIN = 'min';
         public const RULE_MAX = 'max';
         public const RULE_MATCH = 'match';
+        public const RULE_UNIQUE = 'unique';
 
         public array $errors = [];
 
@@ -49,6 +50,18 @@
                     if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}){
                         $this->addError($attribute, self::RULE_MATCH, $rule);
                     }
+                    if($ruleName === self::RULE_UNIQUE){
+                        $className = $rule['class'];
+                        $uniqueAttr = $rule['attribute'] ?? $attribute;
+                        $tableName = $className::tableName();
+                        $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
+                        $statement->bindValue(":attr", $value);
+                        $statement->execute();
+                        $record = $statement->fetchObject();
+                        if($record){
+                            $this->addError($attribute, self::RULE_UNIQUE, ['field' => $this->labels()[$attribute]]);
+                        }
+                    }
                 }
             }
             return empty($this->errors);
@@ -66,11 +79,12 @@
 
         public function errorMessages(){
             return [
-                self::RULE_REQUIRED => ':attribute is required',
-                self::RULE_EMAIL => ':attribute must be a valid email address',
+                self::RULE_REQUIRED => 'The :attribute is required',
+                self::RULE_EMAIL => 'The :attribute must be a valid email address',
                 self::RULE_MIN => 'Min length of :attribute must be {min}',
                 self::RULE_MAX => 'Max length of :attribute must be {max}',
                 self::RULE_MATCH => ':attribute must be the same as {match}',
+                self::RULE_UNIQUE => 'The :attribute is already taken',
             ];
         }
 
