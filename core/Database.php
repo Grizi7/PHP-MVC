@@ -97,9 +97,17 @@
             $statement->execute();
         }
 
-        public function prepare($sql)  {
+        /**
+         * Prepares an SQL statement for execution.
+         *
+         * @param string $sql The SQL query to prepare.
+         * @return \PDOStatement|false The prepared statement, or false on failure.
+         */
+        public function prepare(string $sql)
+        {
             return $this->pdo->prepare($sql);
         }
+
 
         /**
          * Logs a message with a timestamp.

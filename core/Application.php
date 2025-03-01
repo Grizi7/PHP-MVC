@@ -9,29 +9,29 @@
      */
     class Application
     {
-        /** @var string $ROOT_DIR The root directory of the application. */
+        /** @var string The root directory of the application. */
         public static string $ROOT_DIR;
 
-        /** @var Request $request The HTTP request instance. */
-        public Request $request;
-
-        /** @var Response $response The HTTP response instance. */
-        public Response $response;
-
-        /** @var Router $router The router instance for managing routes. */
-        public Router $router;
-
-        /** @var Database $db  The singleton instance of the database.*/
-        public Database $db;
-
-        /** @var Application $app The singleton instance of the application. */
+        /** @var Application The singleton instance of the application. */
         public static Application $app;
 
-        /** @var Controller $controller The current controller handling the request. */
-        public Controller $controller;
+        /** @var Request The HTTP request instance. */
+        public Request $request;
 
-        /** @var Session $session The current session handling the request. */
+        /** @var Response The HTTP response instance. */
+        public Response $response;
+
+        /** @var Router The router instance for managing routes. */
+        public Router $router;
+
+        /** @var Database The singleton instance of the database. */
+        public Database $db;
+
+        /** @var Session The session instance for managing user sessions. */
         public Session $session;
+
+        /** @var Controller|null The current controller handling the request. */
+        public ?Controller $controller = null;
 
         /**
          * Application constructor.
@@ -48,14 +48,11 @@
             $this->response = new Response();
             $this->session = new Session();
             $this->router = new Router($this->request, $this->response);
-
             $this->db = new Database($config);
         }
 
         /**
          * Runs the application by resolving the current route.
-         *
-         * @return void
          */
         public function run(): void
         {
@@ -65,9 +62,9 @@
         /**
          * Gets the current controller instance.
          *
-         * @return Controller The current controller.
+         * @return Controller|null The current controller or null if none is set.
          */
-        public function getController(): Controller
+        public function getController(): ?Controller
         {
             return $this->controller;
         }
