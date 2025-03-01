@@ -4,7 +4,8 @@
 
     namespace app\controllers;
 
-    use app\core\Controller;
+use app\core\Application;
+use app\core\Controller;
     use app\core\Request;
     use app\core\form\Form;
     use app\models\User;
@@ -53,7 +54,9 @@
                 $user->loadData($request->getBody());
             
                 if ($user->validate() && $user->create()) {
-                    return 'Success';
+                    Application::$app->session->setFlash('success', 'Thanks for registering!');
+                    Application::$app->response->redirect('/home');
+                    exit;
                 }
 
             }

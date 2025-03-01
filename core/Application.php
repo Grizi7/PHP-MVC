@@ -30,6 +30,9 @@
         /** @var Controller $controller The current controller handling the request. */
         public Controller $controller;
 
+        /** @var Session $session The current session handling the request. */
+        public Session $session;
+
         /**
          * Application constructor.
          *
@@ -43,6 +46,7 @@
 
             $this->request = new Request();
             $this->response = new Response();
+            $this->session = new Session();
             $this->router = new Router($this->request, $this->response);
 
             $this->db = new Database($config);
