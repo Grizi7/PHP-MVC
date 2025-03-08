@@ -1,11 +1,12 @@
 <?php
 
     namespace app\models;
-
+    
     use app\core\DBModel;
-
+    
     class User extends DBModel
     {
+        public static string $tableName = 'users';
         const STATUS_INACTIVE = 0;
         const STATUS_ACTIVE = 1;
         const STATUS_DELETED = 2;
@@ -17,10 +18,6 @@
         public string $password = '';
         public string $confirm_password = '';
 
-        public function tableName(): string
-        {
-            return 'users';
-        }
 
         public function attributes(): array
         {

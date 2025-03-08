@@ -1,13 +1,14 @@
 <?php
 
+
     namespace app\controllers;
 
     use app\core\Application;
     use app\core\Controller;
     use app\core\Request;
-    use app\core\Response;
     use app\core\form\Form;
     use app\models\User;
+    use app\requests\RegisterRequest;
 
     /**
      * Class AuthController
@@ -34,31 +35,48 @@
          */
         public function login(Request $request): string
         {
+            $user = new User();
             if ($request->isPost()) {
                 return "Handle submitted data";
             }
-            return $this->render('login');
+            return $this->render('login', [
+                'model' => $user,
+                'form' => new Form(),
+            ]);
         }
 
         /**
          * Handles the registration functionality.
          *
-         * @param Request $request The HTTP request instance.
-         * @param Response $response The HTTP response instance.
+         * @param RegisterRequest $request The HTTP request instance.
          * @return string The rendered view or redirects upon successful registration.
          */
-        public function register(Request $request, Response $response): string
+        public function register(Request $request)
         {
             $user = new User();
 
             if ($request->isPost()) {
-                $user->loadData($request->getBody());
 
-                if ($user->validate() && $user->create()) {
+                $data = $request->getBody();
+                $registerRequest = new RegisterRequest();
+
+                // Validate the request
+                
+                $validation = $registerRequest->validate($data);
+                
+                $user->first_name = $registerRequest->input('first_name');
+                $user->last_name = $registerRequest->input('last_name');
+                $user->email = $registerRequest->input('email');
+                
+                if (!$validation) {
+                    $user->errors = $registerRequest->getErrors();   
+                }else{
+                    $user->password = (empty($user->errors)) ? $registerRequest->input('password') : '';
+                    $user->create();
                     Application::$app->session->setFlash('success', 'Thanks for registering!');
-                    $response->redirect('/home');
-                    return ''; // No need to continue execution after redirect
+                    Application::$app->response->redirect('/home');
                 }
+
             }
 
             return $this->render('register', [

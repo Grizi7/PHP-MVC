@@ -5,11 +5,11 @@
     abstract class DBModel extends Model
     {
 
-        abstract public function tableName(): string;
+        public static string $tableName;
         
         abstract public function attributes(): array;
         public function create(){
-            $tableName = $this->tableName();
+            $tableName = $this::$tableName;
             $attributes = $this->attributes();
             $params = array_map(fn($attribute) => ":$attribute", $attributes);
             $statement = self::prepare("INSERT INTO $tableName (".implode(',', $attributes).") VALUES (".implode(',', $params).")");
