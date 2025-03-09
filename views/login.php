@@ -1,14 +1,17 @@
 
-
+    <?php
+        /** @var $model \app\models\User */
+        /** @var $form \app\core\form\Form */
+    ?>
     <h2>Login</h2>
-    <form action="/login" method="POST">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary mt-2">Login</button>
-    </form>
+    <?php $form::begin('login', 'post') ?>
+        
+        <?php if (app\core\Application::$app->session->getFlash('error')) : ?>
+            <div class="alert alert-danger">
+                <?php echo app\core\Application::$app->session->getFlash('error') ?>
+            </div>
+        <?php endif; ?>
+        <?= $form->field($model, 'email', 'email') ?>
+        <?= $form->field($model, 'password', 'password') ?>
+        
+    <?php $form::end() ?>

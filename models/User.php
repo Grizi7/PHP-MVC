@@ -32,6 +32,17 @@
             
         }
 
+        public function login()
+        {
+            $user = self::findOne(['email' => $this->email]);
+            if (!$user) {
+                return false;
+            }
+            if (!password_verify($this->password, $user->password)) {
+                return false;
+            }
+            return $user;
+        }
         public function rules(): array
         {
             return [

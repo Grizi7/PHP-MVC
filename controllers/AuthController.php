@@ -9,6 +9,7 @@
     use app\core\form\Form;
     use app\models\User;
     use app\requests\RegisterRequest;
+    use app\requests\LoginRequest;
 
     /**
      * Class AuthController
@@ -37,7 +38,27 @@
         {
             $user = new User();
             if ($request->isPost()) {
-                return "Handle submitted data";
+                $data = $request->getBody();
+                
+                $loginRequest = new LoginRequest();
+
+                // Validate the request
+                
+                $validation = $loginRequest->validate($data);
+                
+                $user->email = $loginRequest->input('email');
+                $user->password = $loginRequest->input('password');
+                if (!$validation) {
+                    $user->errors = $loginRequest->getErrors();   
+                }else{
+                    $user->password = (empty($user->errors)) ? $loginRequest->input('password') : '';
+                    if($user->login()){
+                        Application::$app->session->setFlash('success', 'Thanks for logining!');
+                        Application::$app->response->redirect('/home');
+                    } else {
+                        Application::$app->session->setFlash('error', 'Invalid login credentials');
+                    }
+                }
             }
             return $this->render('login', [
                 'model' => $user,
