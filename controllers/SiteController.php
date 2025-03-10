@@ -2,7 +2,8 @@
 
     namespace app\controllers;
 
-    use app\core\Controller;
+use app\core\Application;
+use app\core\Controller;
     use app\core\Request;
 
     /**
@@ -20,7 +21,7 @@
         public function home(): string
         {
             $params = [
-                'name' => "Grizi7",
+                'name' => Application::$app->session->get('user')->first_name ?? 'Guest',
             ];
             return $this->render('home', $params);
         }

@@ -52,8 +52,10 @@
                     $user->errors = $loginRequest->getErrors();   
                 }else{
                     $user->password = (empty($user->errors)) ? $loginRequest->input('password') : '';
-                    if($user->login()){
+                    $user = $user->login();
+                    if($user){
                         Application::$app->session->setFlash('success', 'Thanks for logining!');
+                        Application::$app->session->set('user', $user);
                         Application::$app->response->redirect('/home');
                     } else {
                         Application::$app->session->setFlash('error', 'Invalid login credentials');

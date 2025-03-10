@@ -33,6 +33,10 @@
         /** @var Controller|null The current controller handling the request. */
         public ?Controller $controller = null;
 
+        /** @var  */
+
+        public ?DBModel $user;
+
         /**
          * Application constructor.
          *
@@ -49,6 +53,9 @@
             $this->session = new Session();
             $this->router = new Router($this->request, $this->response);
             $this->db = new Database($config);
+            if($this->session->get('user')){
+                $this->user = $this->session->get('user'); 
+            } 
         }
 
         /**
