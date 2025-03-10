@@ -107,4 +107,14 @@
                 'form' => new Form(),
             ]);
         }
+
+        /**
+         * Logs out the current user.
+         */
+        public function logout(): void
+        {
+            User::logout();
+            sessionFlashSet('success', 'Successfully logged out');
+            redirect('/home');
+        }
     }

@@ -23,26 +23,7 @@
         {
             return ['first_name', 'last_name', 'email', 'status', 'password'];
         }
-        public function create()
-        {
-            // create a new user in the database
-            $this->status = self::STATUS_INACTIVE;
-            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-            return parent::create();
-            
-        }
 
-        public function login()
-        {
-            $user = self::findOne(['email' => $this->email]);
-            if (!$user) {
-                return false;
-            }
-            if (!password_verify($this->password, $user->password)) {
-                return false;
-            }
-            return $user;
-        }
         public function rules(): array
         {
             return [
@@ -64,6 +45,31 @@
                 'confirm_password' => 'Password Confirmation',
             ];
         }
+        public function create()
+        {
+            // create a new user in the database
+            $this->status = self::STATUS_INACTIVE;
+            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+            return parent::create();
+            
+        }
 
+        public function login()
+        {
+            $user = self::findOne(['email' => $this->email]);
+            if (!$user) {
+                return false;
+            }
+            if (!password_verify($this->password, $user->password)) {
+                return false;
+            }
+            return $user;
+        }
 
+        public static function logout()
+        {
+            if(sessionGet('user')){
+                sessionRemove('user');
+            }
+        }
     }
