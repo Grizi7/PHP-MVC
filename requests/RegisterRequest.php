@@ -3,7 +3,7 @@
     namespace app\requests;
 
     use app\core\Request;
-use app\models\User;
+    use app\models\User;
 
     /**
      * Class RegisterRequest

@@ -15,6 +15,7 @@
         const RULE_MAX = 'max';
         const RULE_MATCH = 'match';
         const RULE_UNIQUE = 'unique';
+        const RULE_EXISTS = 'exists';
 
 
         protected array $data = [];
@@ -126,6 +127,18 @@
                             $this->addError($attribute, self::RULE_UNIQUE, ['field' => $this->labels()[$attribute]]);
                         }
                     }
+                    if ($ruleName === self::RULE_EXISTS) {
+                        $className = $rule['class'];
+                        $uniqueAttr = $rule['attribute'] ?? $attribute;
+                        $tableName = $className::$tableName;
+                        $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
+                        $statement->bindValue(":attr", $value);
+                        $statement->execute();
+                        $record = $statement->fetchObject();
+                        if (!$record) {
+                            $this->addError($attribute, self::RULE_EXISTS, ['field' => $this->labels()[$attribute]]);
+                        }
+                    }
                 }
             }
             return empty($this->errors);
@@ -152,6 +165,7 @@
                 self::RULE_MAX => 'Max length of :attribute must be {max}',
                 self::RULE_MATCH => ':attribute must be the same as {match}',
                 self::RULE_UNIQUE => 'The :attribute is already taken',
+                self::RULE_EXISTS => 'The selected :attribute does not exist',
             ];
         }
 

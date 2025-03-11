@@ -33,8 +33,7 @@
         /** @var Controller|null The current controller handling the request. */
         public ?Controller $controller = null;
 
-        /** @var  */
-
+        /** @var DBModel|null The user. */
         public ?DBModel $user;
 
         /**

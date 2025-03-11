@@ -1,6 +1,7 @@
     <?php
-        /** @var $model \app\models\User */
-    ?> 
+        /** @var Model $model \app\models\User */
+        /** @var Form $form \app\core\form\Form */
+    ?>
     <h2>Register</h2>
     <?php $form::begin('register', 'post') ?>
         <div class="row">
@@ -8,7 +9,7 @@
                 <?= $form->field($model, 'first_name') ?>
             </div>
             <div class="col">
-                <?php echo $form->field($model, 'last_name') ?>
+                <?= $form->field($model, 'last_name') ?>
             </div>
         </div>
         <?= $form->field($model, 'email', 'email') ?>

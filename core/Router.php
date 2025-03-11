@@ -1,8 +1,7 @@
 <?php
 
     namespace app\core;
-    use ReflectionMethod;
-    use ReflectionFunction;
+
     /**
      * Class Router
      *
@@ -65,10 +64,10 @@
             $path = $this->request->getPath();
             $method = $this->request->method();
             $callback = $this->routes[$method][$path] ?? false;
-
-            if ($callback === false) {
+        
+            if ($callback == false) {
                 $this->response->setStatusCode(404);
-                return $this->renderView("_404");
+                return view("_404");
             }
 
             if (is_string($callback)) {
@@ -78,24 +77,6 @@
             if (is_array($callback)) {
                 Application::$app->controller = new $callback[0]();
                 $callback[0] = Application::$app->controller;
-                $reflection = new ReflectionMethod($callback[0], $callback[1]);
-            } else {
-                $reflection = new ReflectionFunction($callback);
-            }
-
-            $parameters = $reflection->getParameters();
-            if (!empty($parameters)) {
-                $parameter = $parameters[0];
-                $parameterClass = $parameter->getClass();
-                if ($parameterClass && is_subclass_of($parameterClass->name, Request::class)) {
-                    $requestClass = $parameterClass->name;
-                    $requestInstance = new $requestClass();
-                    if (!$requestInstance->validate($this->request->getBody())) {
-                        $this->response->setStatusCode(422);
-                        return $this->renderView("_422", ['errors' => $requestInstance->getErrors()]);
-                    }
-                    return call_user_func($callback, $requestInstance);
-                }
             }
 
             return call_user_func($callback, $this->request);
