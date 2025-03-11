@@ -54,11 +54,11 @@
                     $user->password = (empty($user->errors)) ? $loginRequest->input('password') : '';
                     $user = $user->login();
                     if($user){
-                        Application::$app->session->setFlash('success', 'Thanks for logining!');
+                        sessionFlashSet('success', 'Thanks for logining!');
                         Application::$app->session->set('user', $user);
-                        Application::$app->response->redirect('/home');
+                        redirect('/');
                     } else {
-                        Application::$app->session->setFlash('error', 'Invalid login credentials');
+                        sessionFlashSet('error', 'Invalid login credentials');
                     }
                 }
             }
@@ -96,8 +96,8 @@
                 }else{
                     $user->password = (empty($user->errors)) ? $registerRequest->input('password') : '';
                     $user->create();
-                    Application::$app->session->setFlash('success', 'Thanks for registering!');
-                    Application::$app->response->redirect('/home');
+                    sessionFlashSet('success', 'Thanks for registering!');
+                    redirect('/');
                 }
 
             }
@@ -115,6 +115,6 @@
         {
             User::logout();
             sessionFlashSet('success', 'Successfully logged out');
-            redirect('/home');
+            redirect('/');
         }
     }

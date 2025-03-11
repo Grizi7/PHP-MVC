@@ -21,7 +21,7 @@ use app\core\Controller;
         public function home(): string
         {
             $params = [
-                'name' => Application::$app->session->get('user')->first_name ?? 'Guest',
+                'name' => sessionGet('user')->first_name ?? 'Guest',
             ];
             return $this->render('home', $params);
         }
