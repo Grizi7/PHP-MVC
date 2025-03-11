@@ -72,7 +72,7 @@
         /**
          * Handles the registration functionality.
          *
-         * @param RegisterRequest $request The HTTP request instance.
+         * @param Request $request The HTTP request instance.
          * @return string The rendered view or redirects upon successful registration.
          */
         public function register(Request $request)
