@@ -37,9 +37,10 @@
         public function login(Request $request): string
         {
             $user = new User();
+
             if ($request->isPost()) {
-                $data = $request->getBody();
                 
+                $data = $request->getBody();
                 $loginRequest = new LoginRequest();
 
                 // Validate the request
@@ -51,11 +52,12 @@
                 if (!$validation) {
                     $user->errors = $loginRequest->getErrors();   
                 }else{
-                    $user->password = (empty($user->errors)) ? $loginRequest->input('password') : '';
-                    $user = $user->login();
-                    if($user){
-                        sessionFlashSet('success', 'Thanks for logining!');
-                        Application::$app->session->set('user', $user);
+
+                    $loginAttempt = $user->login();
+                    
+                    if($loginAttempt){
+                        sessionFlashSet('success', 'Welcome back!');
+                        sessionSet('user', $loginAttempt);
                         redirect('/');
                     } else {
                         sessionFlashSet('error', 'Invalid login credentials');
@@ -101,7 +103,7 @@
                 }
 
             }
-
+            
             return $this->render('register', [
                 'model' => $user,
                 'form' => new Form(),
