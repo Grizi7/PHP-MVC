@@ -1,7 +1,9 @@
 <?php
 
-    namespace app\core;
 
+    namespace app\core;
+    
+    use app\core\middlewares\BaseMiddleware;
     /**
      * Class Controller
      *
@@ -13,7 +15,8 @@
          * @var string $layout The layout to be used for rendering views.
          */
         public string $layout = 'main';
-
+        public string $action = '';
+        protected array $middlewares = [];
         /**
          * Sets the layout to be used for rendering views.
          *
@@ -35,5 +38,17 @@
         public function render(string $view, array $params = []): string
         {
             return Application::$app->router->renderView($view, $params);
+        }
+
+
+        public function registerMiddleware(BaseMiddleware $middleware)
+        {
+            $this->middlewares[] = $middleware;
+        }
+
+
+        public function getMiddlewares(): array
+        {
+            return $this->middlewares;
         }
     }
