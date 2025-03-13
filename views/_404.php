@@ -7,7 +7,7 @@
         <title>404</title>
     </head>
 
-   
+
     </html>
     <!doctype html>
     <html lang="en">
@@ -20,12 +20,21 @@
     </head>
 
     <body>
-    
-        <div class="container mt-5">
-            <h1 class="text-danger">404 - Page Not Found</h1>
-            <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-            <a href="/" class="btn btn-primary">Go to Home</a>
+
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <h1 class="text-danger font-weight-bold">404 - Page Not Found</h1>
+                        <p class="text-dark">
+                            The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+                        </p>
+                        <a href="/" class="btn btn-danger mt-3">Go Back Home</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 
