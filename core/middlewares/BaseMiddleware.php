@@ -4,5 +4,5 @@
 
     abstract class BaseMiddleware
     {
-        public function execute();
+        abstract public function execute();
     }

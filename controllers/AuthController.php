@@ -1,14 +1,16 @@
 <?php
 
 
+
     namespace app\controllers;
-    
+
     use app\core\Controller;
     use app\core\Request;
     use app\core\form\Form;
     use app\models\User;
     use app\requests\RegisterRequest;
     use app\requests\LoginRequest;
+    use app\core\middlewares\AuthMiddleware;
 
     /**
      * Class AuthController
@@ -25,6 +27,7 @@
         public function __construct()
         {
             $this->setLayout('auth');
+            $this->registerMiddleware(new AuthMiddleware(['profile']));
         }
 
         /**
@@ -117,5 +120,15 @@
             User::logout();
             sessionFlashSet('success', 'Successfully logged out');
             redirect('/');
+        }
+
+        /**
+         * Displays the user profile.
+         *
+         * @return string The rendered view.
+         */
+        public function profile(): string
+        {
+            return $this->render('profile');
         }
     }
