@@ -129,6 +129,9 @@
          */
         public function profile(): string
         {
-            return $this->render('profile');
+            $user = sessionGet('user');
+            return $this->render('profile', [
+                'user' => $user,
+            ]);
         }
     }

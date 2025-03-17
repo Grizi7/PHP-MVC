@@ -21,7 +21,7 @@
          */
         public function __construct(array $actions = [])
         {
-            $this->actions = ['profile'];
+            $this->actions = $actions;
         }
 
         /**
@@ -34,7 +34,7 @@
         public function execute()
         {
             if (isGuest()) {
-                if (empty($actions) || in_array(Application::$app->controller->action, $actions)) {
+                if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
                     throw new ForbiddenException();
                 }
             }
