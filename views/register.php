@@ -1,6 +1,8 @@
     <?php
         /** @var Model $model \app\models\User */
         /** @var Form $form \app\core\form\Form */
+    
+        $this->title = 'Register';
     ?>
     <h2>Register</h2>
     <?php $form::begin('register', 'post') ?>

@@ -2,6 +2,8 @@
     <?php
         /** @var Model $model \app\models\User */
         /** @var Form $form \app\core\form\Form */
+
+        $this->title = 'Login';
     ?>
     <h2>Login</h2>
     <?php $form::begin('login', 'post') ?>

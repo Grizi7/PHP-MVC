@@ -107,6 +107,7 @@
             }
             
             return $this->render('register', [
+                'title' => 'Register',
                 'model' => $user,
                 'form' => new Form(),
             ]);

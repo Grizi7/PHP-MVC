@@ -1,4 +1,7 @@
 
+    <?php
+        $this->title = 'Contact Us';
+    ?>
     <h2>Contact Us</h2>
     <form action="/contact" method="post">
         <div class="form-group">
