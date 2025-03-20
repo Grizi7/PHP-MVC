@@ -68,14 +68,15 @@
          */
         public function run(): void
         {
-            try {
-                echo $this->router->resolve();
-            } catch (Exception $e) {
-                $this->response->setStatusCode($e->getCode());
-                echo $this->view->renderView('_error', [
-                    'exception' => $e
-                ]);
-            }
+            // try {
+            //     echo $this->router->resolve();
+            // } catch (Exception $e) {
+            //     $this->response->setStatusCode($e->getCode());
+            //     echo $this->view->renderView('_error', [
+            //         'exception' => $e
+            //     ]);
+            // }
+            echo $this->router->resolve();
         }
 
         /**

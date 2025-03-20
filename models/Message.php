@@ -6,12 +6,16 @@
 
     class Message extends DBModel{
 
-
+        public static string $tableName = 'messages';
+        const STATUS_UNREAD = 0;
+        const STATUS_READ = 1;
         public string $name = '';
 
         public string $email = '';
 
         public string $subject = '';
+
+        public int $status = self::STATUS_UNREAD;
 
         public string $message = '';
 
@@ -28,6 +32,11 @@
                 'subject' => 'Subject',
                 'message' => 'Message'
             ];
+        }
+
+        public function create() {
+            $this->status = self::STATUS_UNREAD;
+            return parent::create();
         }
 
 

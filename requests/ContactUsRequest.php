@@ -9,7 +9,7 @@
      * 
      * This class handles the ContactUs form data.
      */
-    class ContactUs extends Request
+    class ContactUsRequest extends Request
     {
         public string $name = '';
         public string $email = '';

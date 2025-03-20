@@ -13,8 +13,9 @@
     $app = new Application(dirname(__DIR__), $_ENV);
 
     $app->router->get('/', [SiteController::class, 'home']);
+    
     $app->router->get('/contact', [SiteController::class, 'contact']);
-    $app->router->post('/contact', [SiteController::class, 'handleContact']);
+    $app->router->post('/contact', [SiteController::class, 'contact']);
 
     // Auth routes
     $app->router->get('/register', [AuthController::class, 'register']);
