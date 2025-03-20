@@ -39,6 +39,8 @@
         /** @var DBModel|null The user. */
         public ?DBModel $user;
 
+        /** @var View The View instance for rendering.*/
+        public View $view;
         /**
          * Application constructor.
          *
@@ -54,6 +56,7 @@
             $this->response = new Response();
             $this->session = new Session();
             $this->router = new Router($this->request, $this->response);
+            $this->view = new View();
             $this->db = new Database($config);
             if($this->session->get('user')){
                 $this->user = $this->session->get('user'); 
@@ -69,7 +72,7 @@
                 echo $this->router->resolve();
             } catch (Exception $e) {
                 $this->response->setStatusCode($e->getCode());
-                echo $this->router->renderView('_error', [
+                echo $this->view->renderView('_error', [
                     'exception' => $e
                 ]);
             }
