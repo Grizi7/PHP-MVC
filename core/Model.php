@@ -36,13 +36,6 @@
         }
 
         /**
-         * Defines validation rules for model attributes.
-         * 
-         * @return array The validation rules for attributes.
-         */
-        abstract public function rules(): array;
-
-        /**
          * Defines labels for model attributes.
          * 
          * @return array The labels for attributes.

@@ -23,18 +23,7 @@
         {
             return ['first_name', 'last_name', 'email', 'status', 'password'];
         }
-
-        public function rules(): array
-        {
-            return [
-                'first_name' => [self::RULE_REQUIRED , [self::RULE_MIN, 'min' => 2], [self::RULE_MAX, 'max' => 24]],
-                'last_name' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 2], [self::RULE_MAX, 'max' => 24]],
-                'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class]],
-                'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 24]],
-                'confirm_password' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
-            ];
-        }
-
+        
         public function labels(): array
         {
             return [
