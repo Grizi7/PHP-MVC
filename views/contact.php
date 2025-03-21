@@ -7,5 +7,5 @@
         <?= $form->field($model, 'name') ?>
         <?= $form->field($model, 'email', 'email') ?>
         <?= $form->field($model, 'subject') ?>
-        <?= $form->field($model, 'message') ?>
+        <?= $form->textareaField($model, 'message') ?>
     <?= $form->end() ?>

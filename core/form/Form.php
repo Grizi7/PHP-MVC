@@ -42,10 +42,22 @@
          * @param Model $model The model associated with the form field.
          * @param string $attribute The attribute name for the field.
          * @param string|null $type The type of the input field (e.g., 'text', 'email').
-         * @return Field The generated form field.
+         * @return InputField The generated form field.
          */
-        public function field(Model $model, string $attribute, string $type = null): Field
+        public function field(Model $model, string $attribute, string $type = null): InputField
         {
-            return new Field($model, $attribute, $type);
+            return new InputField($model, $attribute, $type);
+        }
+
+        /**
+         * Creates a textarea field.
+         *
+         * @param Model $model The model associated with the form field.
+         * @param string $attribute The attribute name for the field.
+         * @return TextareaField The generated textarea field.
+         */
+        public function textareaField(Model $model, string $attribute): TextareaField
+        {
+            return new TextareaField($model, $attribute);
         }
     }
