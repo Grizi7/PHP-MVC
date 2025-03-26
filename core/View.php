@@ -9,6 +9,9 @@
      */
 
     class View{
+        /**
+         * @var string $title The title of the view, which can be set and used within the view templates.
+         */
 
         public string $title = '';
 
