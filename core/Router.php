@@ -1,6 +1,8 @@
 <?php
 
+
     namespace app\core;
+    use ReflectionMethod;
 
     /**
      * Class Router
@@ -83,10 +85,45 @@
                 }
                 $callback[0] = $controller;
             }
-
-            return call_user_func($callback, $this->request);
+            $requestClass =  $this->resolveDependencies($callback[0], $callback[1])[0] ?? $this->request;
+            return call_user_func($callback, $requestClass);
         }
 
+
+        /**
+         * Resolves and injects dependencies for a controller method.
+         *
+         * This method uses reflection to analyze the parameters of the specified
+         * controller method and resolves any dependencies, such as subclasses of
+         * the Request class, to be injected when the method is called.
+         *
+         * @param string|object $controller The controller instance or class name.
+         * @param string $method The method name within the controller.
+         * @return array The resolved dependencies to be injected.
+         */
+        public function resolveDependencies($controller, $method): array
+        {
+            $reflection = new ReflectionMethod($controller, $method);
+            $parameters = $reflection->getParameters();
+
+            $dependencies = [];
+
+            foreach ($parameters as $parameter) {
+                $type = $parameter->getType();
+
+                if ($type && !$type->isBuiltin()) {
+
+                    $className = $type->getName();
+
+                    if (is_subclass_of($className, Request::class)) {
+                        $dependencies[] = new $className($this->request); 
+                        continue;
+                    }
+                }
+            }
+
+            return $dependencies;
+        }
 
         
     }

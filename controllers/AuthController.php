@@ -33,26 +33,25 @@
         /**
          * Handles the login functionality.
          *
-         * @param Request $request The HTTP request instance.
+         * @param LoginRequest $request The HTTP request instance.
          * @return string The rendered view or a message upon form submission.
          */
-        public function login(Request $request): string
+        public function login(LoginRequest $request): string
         {
             $user = new User();
 
             if ($request->isPost()) {
                 
                 $data = $request->getBody();
-                $loginRequest = new LoginRequest();
 
                 // Validate the request
                 
-                $validation = $loginRequest->validate($data);
+                $validation = $request->validate($data);
                 
-                $user->email = $loginRequest->input('email');
-                $user->password = $loginRequest->input('password');
+                $user->email = $request->input('email');
+                $user->password = $request->input('password');
                 if (!$validation) {
-                    $user->errors = $loginRequest->getErrors();   
+                    $user->errors = $request->getErrors();   
                 }else{
 
                     $loginAttempt = $user->login();
@@ -75,30 +74,29 @@
         /**
          * Handles the registration functionality.
          *
-         * @param Request $request The HTTP request instance.
+         * @param RegisterRequest $request The HTTP request instance.
          * @return string The rendered view or redirects upon successful registration.
          */
-        public function register(Request $request)
+        public function register(RegisterRequest $request)
         {
             $user = new User();
 
             if ($request->isPost()) {
 
                 $data = $request->getBody();
-                $registerRequest = new RegisterRequest();
 
                 // Validate the request
                 
-                $validation = $registerRequest->validate($data);
+                $validation = $request->validate($data);
                 
-                $user->first_name = $registerRequest->input('first_name');
-                $user->last_name = $registerRequest->input('last_name');
-                $user->email = $registerRequest->input('email');
+                $user->first_name = $request->input('first_name');
+                $user->last_name = $request->input('last_name');
+                $user->email = $request->input('email');
                 
                 if (!$validation) {
-                    $user->errors = $registerRequest->getErrors();   
+                    $user->errors = $request->getErrors();   
                 }else{
-                    $user->password = (empty($user->errors)) ? $registerRequest->input('password') : '';
+                    $user->password = (empty($user->errors)) ? $request->input('password') : '';
                     $user->create();
                     sessionFlashSet('success', 'Thanks for registering!');
                     redirect('/');
