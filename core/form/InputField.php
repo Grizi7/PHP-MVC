@@ -17,11 +17,12 @@
          *
          * @param Model $model The model associated with the field.
          * @param string $attribute The attribute name of the model for this field.
+         * @param string|null $type The type of the input field (text, password, email, etc.).
          */
-        public function __construct(Model $model, string $attribute, string $type)
+        public function __construct(Model $model, string $attribute, $type = null)
         {
-            $this->type = self::TYPE_TEXT;
-            parent::__construct($model, $attribute, $type);
+            parent::__construct($model, $attribute);
+            $this->type = $type ?? self::TYPE_TEXT;
         }
 
         /**

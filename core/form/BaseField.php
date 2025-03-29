@@ -24,11 +24,10 @@
          * @param Model $model The model associated with the field.
          * @param string $attribute The attribute name of the model for this field.
         */
-        public function __construct(Model $model, string $attribute, $type = null)
+        public function __construct(Model $model, string $attribute)
         {
             $this->model = $model;
             $this->attribute = $attribute;
-            $this->type = $type ?? self::TYPE_TEXT;
         }
 
         
