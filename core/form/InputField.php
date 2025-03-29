@@ -11,12 +11,6 @@
      */
     class InputField extends BaseField
     {
-        const TYPE_TEXT = 'text';
-        const TYPE_PASSWORD = 'password';
-        const TYPE_EMAIL = 'email';
-
-        /** @var string $type The input type for the field. */
-        protected string $type;
 
         /**
          * InputField constructor.
@@ -24,10 +18,10 @@
          * @param Model $model The model associated with the field.
          * @param string $attribute The attribute name of the model for this field.
          */
-        public function __construct(Model $model, string $attribute)
+        public function __construct(Model $model, string $attribute, string $type)
         {
             $this->type = self::TYPE_TEXT;
-            parent::__construct($model, $attribute);
+            parent::__construct($model, $attribute, $type);
         }
 
         /**

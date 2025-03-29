@@ -4,12 +4,19 @@
     use app\core\Model;
     abstract class BaseField{
 
+        const TYPE_TEXT = 'text';
+        const TYPE_PASSWORD = 'password';
+        const TYPE_EMAIL = 'email';
+
+
         /** @var Model $model The model associated with the field. */
         public Model $model;
 
         /** @var string $attribute The attribute name of the model for this field. */
         public string $attribute;
 
+        /** @var string $type The type of the input field. */
+        public string $type;
 
         /**
          * Field constructor.
@@ -21,6 +28,7 @@
         {
             $this->model = $model;
             $this->attribute = $attribute;
+            $this->type = $type ?? self::TYPE_TEXT;
         }
 
         
