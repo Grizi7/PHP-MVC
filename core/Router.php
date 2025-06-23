@@ -85,7 +85,8 @@
                 }
                 $callback[0] = $controller;
             }
-            $requestClass =  $this->resolveDependencies($callback[0], $callback[1])[0] ?? $this->request;
+            $requestClass = is_array($callback)
+                ? $this->resolveDependencies($callback[0], $callback[1])[0] ?? $this->request : $this->request;
             return call_user_func($callback, $requestClass);
         }
 
