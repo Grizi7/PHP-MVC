@@ -29,7 +29,7 @@ This PHP-MVC framework provides a structured architecture for building web appli
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/PHP-MVC.git
+   git clone https://github.com/Grizi7/PHP-MVC.git
    ```
 
 2. Install dependencies via Composer:
